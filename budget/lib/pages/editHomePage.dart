@@ -1,6 +1,9 @@
 import 'package:budget/colors.dart';
 import 'package:budget/database/tables.dart';
+import 'package:budget/functions.dart';
+import 'package:budget/modified/reorderable_list.dart';
 import 'package:budget/pages/addTransactionPage.dart';
+import 'package:budget/pages/homePage/homePageActualNetWorth.dart';
 import 'package:budget/pages/homePage/homePageAllSpendingSummary.dart';
 import 'package:budget/pages/homePage/homePageBudgets.dart';
 import 'package:budget/pages/homePage/homePageCreditDebts.dart';
@@ -12,11 +15,12 @@ import 'package:budget/pages/homePage/homePageUpcomingTransactions.dart';
 import 'package:budget/pages/homePage/homePageWalletSwitcher.dart';
 import 'package:budget/pages/settingsPage.dart';
 import 'package:budget/struct/databaseGlobal.dart';
-import 'package:budget/modified/reorderable_list.dart';
 import 'package:budget/struct/navBarIconsData.dart';
 import 'package:budget/struct/settings.dart';
 import 'package:budget/widgets/animatedExpanded.dart';
 import 'package:budget/widgets/editRowEntry.dart';
+import 'package:budget/widgets/framework/pageFramework.dart';
+import 'package:budget/widgets/framework/popupFramework.dart';
 import 'package:budget/widgets/listItem.dart';
 import 'package:budget/widgets/moreIcons.dart';
 import 'package:budget/widgets/navigationFramework.dart';
@@ -31,9 +35,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart' hide SliverReorderableList;
 import 'package:flutter/material.dart' hide SliverReorderableList;
 import 'package:flutter/services.dart';
-import 'package:budget/widgets/framework/pageFramework.dart';
-import 'package:budget/widgets/framework/popupFramework.dart';
-import 'package:budget/functions.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
 
 // We need to refresh the home page when this route is popped
@@ -225,6 +226,21 @@ class _EditHomePageState extends State<EditHomePage> {
             extraWidgetsBelow: [],
             onTap: () async {
               await openNetWorthSettings(context);
+            },
+          ),
+          "actualNetWorth": EditHomePageItem(
+            icon: appStateSettings["outlinedIcons"]
+                ? Icons.area_chart_outlined
+                : Icons.area_chart_rounded,
+            name: "actual-net-worth".tr(),
+            isEnabled:
+                isHomeScreenSectionEnabled(context, "showActualNetWorth"),
+            onSwitched: (value) {
+              switchHomeScreenSection(context, "showActualNetWorth", value);
+            },
+            extraWidgetsBelow: [],
+            onTap: () async {
+              await openActualNetWorthSettings(context);
             },
           ),
           "spendingGraph": EditHomePageItem(

@@ -2,44 +2,45 @@ import 'package:budget/colors.dart';
 import 'package:budget/database/generatePreviewData.dart';
 import 'package:budget/database/tables.dart';
 import 'package:budget/functions.dart';
+import 'package:budget/pages/editHomePage.dart';
+import 'package:budget/pages/homePage/homePageActualNetWorth.dart';
+import 'package:budget/pages/homePage/homePageAllSpendingSummary.dart';
+import 'package:budget/pages/homePage/homePageBudgets.dart';
+import 'package:budget/pages/homePage/homePageCreditDebts.dart';
 import 'package:budget/pages/homePage/homePageHeatmap.dart';
 import 'package:budget/pages/homePage/homePageLineGraph.dart';
 import 'package:budget/pages/homePage/homePageNetWorth.dart';
 import 'package:budget/pages/homePage/homePageObjectives.dart';
 import 'package:budget/pages/homePage/homePagePieChart.dart';
+import 'package:budget/pages/homePage/homePageUpcomingTransactions.dart';
+import 'package:budget/pages/homePage/homePageUsername.dart';
 import 'package:budget/pages/homePage/homePageWalletList.dart';
 import 'package:budget/pages/homePage/homePageWalletSwitcher.dart';
 import 'package:budget/pages/homePage/homeTransactions.dart';
-import 'package:budget/pages/homePage/homePageUsername.dart';
-import 'package:budget/pages/homePage/homePageBudgets.dart';
-import 'package:budget/pages/homePage/homePageUpcomingTransactions.dart';
-import 'package:budget/pages/homePage/homePageAllSpendingSummary.dart';
-import 'package:budget/pages/editHomePage.dart';
 import 'package:budget/pages/settingsPage.dart';
-import 'package:budget/pages/homePage/homePageCreditDebts.dart';
 import 'package:budget/struct/settings.dart';
 import 'package:budget/widgets/animatedExpanded.dart';
 import 'package:budget/widgets/button.dart';
 import 'package:budget/widgets/framework/pageFramework.dart';
+import 'package:budget/widgets/linearGradientFadedEdges.dart';
 import 'package:budget/widgets/navigationFramework.dart';
+import 'package:budget/widgets/navigationSidebar.dart';
 import 'package:budget/widgets/openBottomSheet.dart';
+import 'package:budget/widgets/pullDownToRefreshSync.dart';
 import 'package:budget/widgets/ratingPopup.dart';
+import 'package:budget/widgets/scrollbarWrap.dart';
 import 'package:budget/widgets/selectedTransactionsAppBar.dart';
-import 'package:budget/widgets/util/keepAliveClientMixin.dart';
+import 'package:budget/widgets/slidingSelectorIncomeExpense.dart';
 import 'package:budget/widgets/textWidgets.dart';
 import 'package:budget/widgets/transactionEntry/swipeToSelectTransactions.dart';
-import 'package:budget/widgets/viewAllTransactionsButton.dart';
-import 'package:budget/widgets/navigationSidebar.dart';
-import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/material.dart';
-import 'package:budget/widgets/scrollbarWrap.dart';
-import 'package:budget/widgets/slidingSelectorIncomeExpense.dart';
-import 'package:budget/widgets/linearGradientFadedEdges.dart';
-import 'package:budget/widgets/pullDownToRefreshSync.dart';
-import 'package:budget/widgets/util/rightSideClipper.dart';
-import 'package:flutter/services.dart';
 import 'package:budget/widgets/util/checkWidgetLaunch.dart';
+import 'package:budget/widgets/util/keepAliveClientMixin.dart';
+import 'package:budget/widgets/util/rightSideClipper.dart';
+import 'package:budget/widgets/viewAllTransactionsButton.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({
@@ -196,6 +197,10 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
       "netWorth": isHomeScreenSectionEnabled(context, "showNetWorth")
           ? HomePageNetWorth()
           : null,
+      "actualNetWorth":
+          isHomeScreenSectionEnabled(context, "showActualNetWorth")
+              ? HomePageActualNetWorth()
+              : null,
       "objectives": isHomeScreenSectionEnabled(context, "showObjectives")
           ? HomePageObjectives(objectiveType: ObjectiveType.goal)
           : null,

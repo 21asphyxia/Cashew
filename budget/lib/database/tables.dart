@@ -86,6 +86,7 @@ enum BudgetTransactionFilters {
 enum HomePageWidgetDisplay {
   WalletSwitcher,
   WalletList,
+  ActualNetWorth,
   NetWorth,
   AllSpendingSummary, //Income/Expense homescreen
   PieChart,
